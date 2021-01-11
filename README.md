@@ -4,7 +4,7 @@ An intermediate level task for practicing string parsing and data conversion.
 
 LV (multinational corporation specializing in luxury goods) handbags have "date codes" with information about a handbag manufacturing location and date. In the task you have to implement "date code" generation and parsing algorithms for different "date code" formats.
 
-Read more about [LV's "date codes"](https://www.savvychicconsignment.com/authenticity/louis-vuitton/) before starting work on the task.
+Read more about [LV's "date codes"](https://www.yoogiscloset.com/authenticate/louis-vuitton) before starting work on the task ([Wayback Machine's copy](https://web.archive.org/web/20201112020811/https://www.savvychicconsignment.com/authenticity/louis-vuitton/)).
 
 [![How to Decode a Date Code](https://www.yoogiscloset.com/media/wordpress/2019/02/how-to-read-louis-vuitton-date-code-chart.jpg)](https://www.yoogiscloset.com/blog/louis-vuitton-date-codes/)
 
