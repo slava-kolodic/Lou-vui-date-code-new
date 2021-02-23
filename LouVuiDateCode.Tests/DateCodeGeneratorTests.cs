@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using NUnit.Framework;
 
 #pragma warning disable CA1062
@@ -34,9 +34,9 @@ namespace LouVuiDateCode.Tests
         {
             new object[] { "bc", new DateTime(1987, 1, 1), "871BC" },
             new object[] { "lp", new DateTime(1987, 12, 1), "8712LP" },
-            new object[] { "vx", new DateTime(1987, 4, 1), "874VX" },
-            new object[] { "fc", new DateTime(1989, 2, 1), "892FC" },
-            new object[] { "di", new DateTime(1989, 12, 1), "8912DI" },
+            new object[] { "Vx", new DateTime(1987, 4, 1), "874VX" },
+            new object[] { "FC", new DateTime(1989, 2, 1), "892FC" },
+            new object[] { "dI", new DateTime(1989, 12, 1), "8912DI" },
         };
 
         private static readonly object[][] Generate1990CodeOutOfRangeData =
@@ -49,9 +49,9 @@ namespace LouVuiDateCode.Tests
         {
             new object[] { "th", new DateTime(1990, 1, 1), "TH0910" },
             new object[] { "mb", new DateTime(1995, 3, 1), "MB0935" },
-            new object[] { "ct", new DateTime(2001, 10, 1), "CT1001" },
-            new object[] { "vi", new DateTime(2005, 12, 1), "VI1025" },
-            new object[] { "rc", new DateTime(2006, 7, 1), "RC0076" },
+            new object[] { "Ct", new DateTime(2001, 10, 1), "CT1001" },
+            new object[] { "VI", new DateTime(2005, 12, 1), "VI1025" },
+            new object[] { "rC", new DateTime(2006, 7, 1), "RC0076" },
         };
 
         private static readonly object[][] Generate2007CodeOutOfRangeData =
@@ -71,6 +71,17 @@ namespace LouVuiDateCode.Tests
             new object[] { "mb", new DateTime(2013, 11, 25), "MB4183" },
             new object[] { "rc", new DateTime(2020, 12, 6), "RC4290" },
             new object[] { "rc", new DateTime(2020, 12, 7), "RC5200" },
+            new object[] { "rc", new DateTime(2015, 1, 1), "RC0115" },
+            new object[] { "rc", new DateTime(2015, 1, 4), "RC0115" },
+            new object[] { "rc", new DateTime(2015, 1, 5), "RC0125" },
+            new object[] { "rc", new DateTime(2016, 1, 1), "RC5136" },
+            new object[] { "rc", new DateTime(2016, 1, 3), "RC5136" },
+            new object[] { "rc", new DateTime(2016, 1, 4), "RC0116" },
+            new object[] { "rc", new DateTime(2017, 1, 1), "RC5127" },
+            new object[] { "rc", new DateTime(2017, 1, 2), "RC0117" },
+            new object[] { "rc", new DateTime(2020, 12, 27), "RC5220" },
+            new object[] { "rc", new DateTime(2020, 12, 28), "RC5230" },
+            new object[] { "rc", new DateTime(2020, 12, 31), "RC5230" },
         };
 
         [TestCase(1979u, 1u)]
@@ -137,6 +148,8 @@ namespace LouVuiDateCode.Tests
         [TestCase("79")]
         [TestCase("b9")]
         [TestCase("7b")]
+        [TestCase("abc")]
+        [TestCase("b")]
         public void GenerateLate1980Code_ParameterIsOutOfRange_ThrowsArgumentException(string factoryLocationCode)
         {
             // Act & Assert
@@ -174,6 +187,8 @@ namespace LouVuiDateCode.Tests
         [TestCase("79")]
         [TestCase("b9")]
         [TestCase("7c")]
+        [TestCase("abc")]
+        [TestCase("b")]
         public void GenerateLate1980Code_DateTime_ParameterIsOutOfRange_ThrowsArgumentException(string factoryLocationCode)
         {
             // Act & Assert
@@ -215,6 +230,8 @@ namespace LouVuiDateCode.Tests
         [TestCase("79")]
         [TestCase("b9")]
         [TestCase("7c")]
+        [TestCase("abc")]
+        [TestCase("b")]
         public void Generate1990Code_ParameterIsOutOfRange_ThrowsArgumentException(string factoryLocationCode)
         {
             // Act & Assert
@@ -253,6 +270,8 @@ namespace LouVuiDateCode.Tests
         [TestCase("79")]
         [TestCase("b9")]
         [TestCase("7c")]
+        [TestCase("abc")]
+        [TestCase("b")]
         public void Generate1990Code_DateTime_ParameterIsOutOfRange_ThrowsArgumentException(string factoryLocationCode)
         {
             // Act & Assert
@@ -275,8 +294,12 @@ namespace LouVuiDateCode.Tests
         }
 
         [TestCase(2006u, 1u)]
+        [TestCase(2007u, 0u)]
         [TestCase(2007u, 54u)]
-        public void Generate2007Code_ProductionYearOrMonthIsOutOfRange_ThrowsArgumentOutOfRangeException(uint manufacturingYear, uint productionWeek)
+        [TestCase(2017u, 53u)]
+        [TestCase(2018u, 53u)]
+        [TestCase(2019u, 53u)]
+        public void Generate2007Code_ProductionYearOrWeekIsOutOfRange_ThrowsArgumentOutOfRangeException(uint manufacturingYear, uint productionWeek)
         {
             // Act & Assert
             Assert.Throws<ArgumentOutOfRangeException>(() => DateCodeGenerator.Generate2007Code("BC", manufacturingYear, productionWeek));
@@ -293,6 +316,8 @@ namespace LouVuiDateCode.Tests
         [TestCase("79")]
         [TestCase("b9")]
         [TestCase("7c")]
+        [TestCase("abc")]
+        [TestCase("b")]
         public void Generate2007Code_ParameterIsOutOfRange_ThrowsArgumentException(string factoryLocationCode)
         {
             // Act & Assert
@@ -304,6 +329,8 @@ namespace LouVuiDateCode.Tests
         [TestCase("sd", 2007u, 25u, ExpectedResult = "SD2057")]
         [TestCase("ol", 2015u, 20u, ExpectedResult = "OL2105")]
         [TestCase("gi", 2020u, 53u, ExpectedResult = "GI5230")]
+        [TestCase("gi", 2015u, 53u, ExpectedResult = "GI5136")]
+        [TestCase("gi", 2015u, 53u, ExpectedResult = "GI5135")]
         public string Generate2007Code_ParametersAreValid_ReturnsResult(string factoryLocationCode, uint manufacturingYear, uint productionWeek)
         {
             // Act
@@ -332,6 +359,8 @@ namespace LouVuiDateCode.Tests
         [TestCase("79")]
         [TestCase("b9")]
         [TestCase("7c")]
+        [TestCase("abc")]
+        [TestCase("b")]
         public void Generate2007Code_DateTime_ParameterIsOutOfRange_ThrowsArgumentException(string factoryLocationCode)
         {
             // Act & Assert

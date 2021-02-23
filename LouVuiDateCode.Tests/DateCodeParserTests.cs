@@ -19,6 +19,10 @@ namespace LouVuiDateCode.Tests
 
         [TestCase("83")]
         [TestCase("83678")]
+        [TestCase("800")]
+        [TestCase("8013")]
+        [TestCase("791")]
+        [TestCase("901")]
         public void ParseEarly1980Code_DateCodeIsInvalid_ThrowsArgumentException(string dateCode)
         {
             // Assert
@@ -52,6 +56,11 @@ namespace LouVuiDateCode.Tests
 
         [TestCase("87VX")]
         [TestCase("87451VX")]
+        [TestCase("800VX")]
+        [TestCase("8013VX")]
+        [TestCase("791VX")]
+        [TestCase("901VX")]
+        [TestCase("801QQ")]
         public void ParseLate1980Code_DateCodeIsInvalid_ThrowsArgumentException(string dateCode)
         {
             // Assert
@@ -90,6 +99,11 @@ namespace LouVuiDateCode.Tests
 
         [TestCase("R0017")]
         [TestCase("RI00170")]
+        [TestCase("RI1930")]
+        [TestCase("RI0819")]
+        [TestCase("RI0017")]
+        [TestCase("RI0900")]
+        [TestCase("QQ0910")]
         public void Parse1990Code_DateCodeIsInvalid_ThrowsArgumentException(string dateCode)
         {
             // Assert
@@ -127,6 +141,12 @@ namespace LouVuiDateCode.Tests
 
         [TestCase("R0017")]
         [TestCase("RI00170")]
+        [TestCase("RI5137")]
+        [TestCase("RI5138")]
+        [TestCase("RI5139")]
+        [TestCase("RI0016")]
+        [TestCase("RI0007")]
+        [TestCase("QQ0017")]
         public void Parse2007Code_DateCodeIsInvalid_ThrowsArgumentException(string dateCode)
         {
             // Assert
