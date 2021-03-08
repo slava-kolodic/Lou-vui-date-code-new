@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using NUnit.Framework;
 
 #pragma warning disable CA1062
@@ -330,7 +330,6 @@ namespace LouVuiDateCode.Tests
         [TestCase("ol", 2015u, 20u, ExpectedResult = "OL2105")]
         [TestCase("gi", 2020u, 53u, ExpectedResult = "GI5230")]
         [TestCase("gi", 2015u, 53u, ExpectedResult = "GI5136")]
-        [TestCase("gi", 2015u, 53u, ExpectedResult = "GI5135")]
         public string Generate2007Code_ParametersAreValid_ReturnsResult(string factoryLocationCode, uint manufacturingYear, uint productionWeek)
         {
             // Act
