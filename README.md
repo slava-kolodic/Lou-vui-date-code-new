@@ -23,7 +23,7 @@ The first group of [overloaded methods](https://docs.microsoft.com/en-us/dotnet/
 3. Implement Generate1990Code(string, uint, uint) and Generate1990Code(DateTime) methods in the [DateCodeGenerator.cs](LouVuiDateCode/DateCodeGenerator.cs) file.
 4. Implement Generate2007Code(string, uint, uint) and Generate2007Code(DateTime) method in the [DateCodeGenerator.cs](LouVuiDateCode/DateCodeGenerator.cs) file.
 
-**ISO-8601:** Use [EpochConverter](https://www.epochconverter.com/) for visualizing week numbers (see week number for [1st Jan for 2016 year](https://www.epochconverter.com/weeks/2016)).
+**ISO-8601:** Use [EpochConverter](https://www.epochconverter.com/) for visualizing week numbers (see week number for [1st Jan for 2016 year](https://www.epochconverter.com/weeks/2016)). It is worth noting that Epoch Converter works according to the *[ISO-8601](https://en.wikipedia.org/wiki/ISO_8601)* standard, which applies special rules for calculating days, weeks and years.
 
 Then implement a helper method that should return a list of countries that have factories with a specified factory location code. Two or more countries may have factories with the same location code (ex. France and USA have a factory with "SD" location code). Countries are implemented as [enumeration type values](https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/builtin-types/enum).
 
