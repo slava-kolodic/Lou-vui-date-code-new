@@ -19,7 +19,7 @@ namespace LouVuiDateCode
         /// <summary>
         /// Parses a date code and returns a <paramref name="factoryLocationCode"/>, <paramref name="manufacturingYear"/>, <paramref name="manufacturingMonth"/> and <paramref name="factoryLocationCountry"/> array.
         /// </summary>
-        /// <param name="dateCode">A six number date code.</param>
+        /// <param name="dateCode">A three or four number date code.</param>
         /// <param name="factoryLocationCountry">A factory location country array.</param>
         /// <param name="factoryLocationCode">A factory location code.</param>
         /// <param name="manufacturingYear">A manufacturing year to return.</param>
@@ -49,7 +49,7 @@ namespace LouVuiDateCode
         /// <summary>
         /// Parses a date code and returns a <paramref name="factoryLocationCode"/>, <paramref name="manufacturingYear"/>, <paramref name="manufacturingWeek"/> and <paramref name="factoryLocationCountry"/> array.
         /// </summary>
-        /// <param name="dateCode">A three or four number date code.</param>
+        /// <param name="dateCode">A six number date code.</param>
         /// <param name="factoryLocationCountry">A factory location country array.</param>
         /// <param name="factoryLocationCode">A factory location code.</param>
         /// <param name="manufacturingYear">A manufacturing year to return.</param>
