@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 
 namespace LouVuiDateCode
 {
@@ -28,7 +28,7 @@ namespace LouVuiDateCode
         }
 
         /// <summary>
-        /// Generates a date code using rules from early 1980s.
+        /// Generates a date code using rules from late 1980s.
         /// </summary>
         /// <param name="factoryLocationCode">A two-letter factory location code.</param>
         /// <param name="manufacturingYear">A manufacturing year.</param>
