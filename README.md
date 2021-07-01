@@ -1,6 +1,6 @@
 # "LV" Date Code
 
-An intermediate level task for practicing string parsing and data conversion.
+An intermediate level task for practicing string parsing and data conversion
 
 LV (multinational corporation specializing in luxury goods) handbags have "date codes" with information about a handbag manufacturing location and date. In the task you have to implement "date code" generation and parsing algorithms for different "date code" formats.
 
