@@ -13,8 +13,6 @@ namespace LouVuiDateCode
         /// <returns>A generated date code.</returns>
         public static string GenerateEarly1980Code(uint manufacturingYear, uint manufacturingMonth)
         {
-            // TODO #1-1. Analyze unit tests for the method, and add the method implementation.
-
             if (manufacturingMonth > 12)
             {
                 throw new ArgumentOutOfRangeException(nameof(manufacturingMonth));
@@ -54,8 +52,29 @@ namespace LouVuiDateCode
         /// <returns>A generated date code.</returns>
         public static string GenerateEarly1980Code(DateTime manufacturingDate)
         {
-            // TODO #1-2. Analyze unit tests for the method, and add the method implementation.
-            throw new NotImplementedException();
+            if ((manufacturingDate.Month > 12) || (manufacturingDate.Year < 1980) || (manufacturingDate.Year > 1989))
+            {
+                throw new ArgumentOutOfRangeException(nameof(manufacturingDate));
+            }
+
+            string month = manufacturingDate.Month.ToString(CultureInfo.CurrentCulture);
+            char[] monthChar = month.ToCharArray();
+            string year = manufacturingDate.Year.ToString(CultureInfo.CurrentCulture);
+            char[] yearChar = year.ToCharArray();
+            if (manufacturingDate.Month > 9)
+            {
+                char[] final = new char[4];
+                Array.Copy(yearChar, 2, final, 0, 2);
+                Array.Copy(monthChar, 0, final, 2, final.Length - 2);
+                return new string(final);
+            }
+            else
+            {
+                char[] final = new char[3];
+                Array.Copy(yearChar, 2, final, 0, 2);
+                Array.Copy(monthChar, 0, final, 2, final.Length - 2);
+                return new string(final);
+            }
         }
 
         /// <summary>
