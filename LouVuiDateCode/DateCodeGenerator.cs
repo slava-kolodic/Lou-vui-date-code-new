@@ -86,8 +86,48 @@ namespace LouVuiDateCode
         /// <returns>A generated date code.</returns>
         public static string GenerateLate1980Code(string factoryLocationCode, uint manufacturingYear, uint manufacturingMonth)
         {
-            // TODO #2-1. Analyze unit tests for the method, and add the method implementation.
-            throw new NotImplementedException();
+            if (string.IsNullOrEmpty(factoryLocationCode))
+            {
+                throw new ArgumentNullException(nameof(factoryLocationCode));
+            }
+
+            if (factoryLocationCode.Length != 2)
+            {
+                throw new ArgumentException("no 2", nameof(factoryLocationCode));
+            }
+
+            char[] factoryCode = factoryLocationCode.ToCharArray();
+            for (int i = 0; i < factoryCode.Length; i++)
+            {
+                switch (factoryCode[i])
+                {
+                    case '0':
+                        throw new ArgumentException("Foo", nameof(factoryLocationCode));
+                    case '1':
+                        throw new ArgumentException("Foo", nameof(factoryLocationCode));
+                    case '2':
+                        throw new ArgumentException("Foo", nameof(factoryLocationCode));
+                    case '3':
+                        throw new ArgumentException("Foo", nameof(factoryLocationCode));
+                    case '4':
+                        throw new ArgumentException("Foo", nameof(factoryLocationCode));
+                    case '5':
+                        throw new ArgumentException("Foo", nameof(factoryLocationCode));
+                    case '6':
+                        throw new ArgumentException("Foo", nameof(factoryLocationCode));
+                    case '7':
+                        throw new ArgumentException("Foo", nameof(factoryLocationCode));
+                    case '8':
+                        throw new ArgumentException("Foo", nameof(factoryLocationCode));
+                    case '9':
+                        throw new ArgumentException("Foo", nameof(factoryLocationCode));
+                    default:
+                        break;
+                }
+            }
+
+            string s = GenerateEarly1980Code(manufacturingYear, manufacturingMonth) + factoryLocationCode.ToUpper(CultureInfo.CurrentCulture);
+            return s;
         }
 
         /// <summary>
@@ -98,8 +138,69 @@ namespace LouVuiDateCode
         /// <returns>A generated date code.</returns>
         public static string GenerateLate1980Code(string factoryLocationCode, DateTime manufacturingDate)
         {
-            // TODO #2-2. Analyze unit tests for the method, and add the method implementation.
-            throw new NotImplementedException();
+            if (string.IsNullOrEmpty(factoryLocationCode))
+            {
+                throw new ArgumentNullException(nameof(factoryLocationCode));
+            }
+
+            if (factoryLocationCode.Length != 2)
+            {
+                throw new ArgumentException("no 2", nameof(factoryLocationCode));
+            }
+
+            char[] factoryCode = factoryLocationCode.ToCharArray();
+            for (int i = 0; i < factoryCode.Length; i++)
+            {
+                switch (factoryCode[i])
+                {
+                    case '0':
+                        throw new ArgumentException("Foo", nameof(factoryLocationCode));
+                    case '1':
+                        throw new ArgumentException("Foo", nameof(factoryLocationCode));
+                    case '2':
+                        throw new ArgumentException("Foo", nameof(factoryLocationCode));
+                    case '3':
+                        throw new ArgumentException("Foo", nameof(factoryLocationCode));
+                    case '4':
+                        throw new ArgumentException("Foo", nameof(factoryLocationCode));
+                    case '5':
+                        throw new ArgumentException("Foo", nameof(factoryLocationCode));
+                    case '6':
+                        throw new ArgumentException("Foo", nameof(factoryLocationCode));
+                    case '7':
+                        throw new ArgumentException("Foo", nameof(factoryLocationCode));
+                    case '8':
+                        throw new ArgumentException("Foo", nameof(factoryLocationCode));
+                    case '9':
+                        throw new ArgumentException("Foo", nameof(factoryLocationCode));
+                    default:
+                        break;
+                }
+            }
+
+            if ((manufacturingDate.Month > 12) || (manufacturingDate.Year < 1980) || (manufacturingDate.Year > 1989))
+            {
+                throw new ArgumentOutOfRangeException(nameof(manufacturingDate));
+            }
+
+            string month = manufacturingDate.Month.ToString(CultureInfo.CurrentCulture);
+            char[] monthChar = month.ToCharArray();
+            string year = manufacturingDate.Year.ToString(CultureInfo.CurrentCulture);
+            char[] yearChar = year.ToCharArray();
+            if (manufacturingDate.Month > 9)
+            {
+                char[] final = new char[4];
+                Array.Copy(yearChar, 2, final, 0, 2);
+                Array.Copy(monthChar, 0, final, 2, final.Length - 2);
+                return new string(final) + factoryLocationCode.ToUpper(CultureInfo.CurrentCulture);
+            }
+            else
+            {
+                char[] final = new char[3];
+                Array.Copy(yearChar, 2, final, 0, 2);
+                Array.Copy(monthChar, 0, final, 2, final.Length - 2);
+                return new string(final) + factoryLocationCode.ToUpper(CultureInfo.CurrentCulture);
+            }
         }
 
         /// <summary>
@@ -111,8 +212,58 @@ namespace LouVuiDateCode
         /// <returns>A generated date code.</returns>
         public static string Generate1990Code(string factoryLocationCode, uint manufacturingYear, uint manufacturingMonth)
         {
-            // TODO #3-1. Analyze unit tests for the method, and add the method implementation.
-            throw new NotImplementedException();
+            CheckLocationCode(factoryLocationCode);
+
+            if (manufacturingMonth > 12)
+            {
+                throw new ArgumentOutOfRangeException(nameof(manufacturingMonth));
+            }
+
+            if ((manufacturingYear < 1990) || (manufacturingYear > 2006))
+            {
+                throw new ArgumentOutOfRangeException(nameof(manufacturingYear));
+            }
+
+            string stringMonth = manufacturingMonth.ToString(CultureInfo.CurrentCulture);
+            char[] charMonth = stringMonth.ToCharArray();
+
+            string stringYear = manufacturingYear.ToString(CultureInfo.CurrentCulture);
+            char[] charYear = stringYear.ToCharArray();
+
+            if (manufacturingYear > 1999)
+            {
+                if (manufacturingMonth > 9)
+                {
+                    char[] final = new char[2];
+                    Array.Copy(charYear, 3, final, 1, 1);
+                    Array.Copy(charMonth, 1, final, 0, 1);
+                    return factoryLocationCode.ToUpper(CultureInfo.CurrentCulture) + "10" + new string(final);
+                }
+                else
+                {
+                    char[] final = new char[2];
+                    Array.Copy(charYear, 3, final, 1, 1);
+                    Array.Copy(charMonth, 0, final, 0, 1);
+                    return factoryLocationCode.ToUpper(CultureInfo.CurrentCulture) + "10" + new string(final);
+                }
+            }
+            else
+            {
+                if (manufacturingMonth > 9)
+                {
+                    char[] final = new char[2];
+                    Array.Copy(charYear, 3, final, 1, 1);
+                    Array.Copy(charMonth, 1, final, 0, 1);
+                    return factoryLocationCode.ToUpper(CultureInfo.CurrentCulture) + "09" + new string(final);
+                }
+                else
+                {
+                    char[] final = new char[2];
+                    Array.Copy(charYear, 3, final, 1, 1);
+                    Array.Copy(charMonth, 0, final, 0, 1);
+                    return factoryLocationCode.ToUpper(CultureInfo.CurrentCulture) + "09" + new string(final);
+                }
+            }
         }
 
         /// <summary>
@@ -150,6 +301,49 @@ namespace LouVuiDateCode
         {
             // TODO #4-2. Analyze unit tests for the method, and add the method implementation.
             throw new NotImplementedException();
+        }
+
+        public static void CheckLocationCode(string factoryLocationCode)
+        {
+            if (string.IsNullOrEmpty(factoryLocationCode))
+            {
+                throw new ArgumentNullException(nameof(factoryLocationCode));
+            }
+
+            if (factoryLocationCode.Length != 2)
+            {
+                throw new ArgumentException("no 2", nameof(factoryLocationCode));
+            }
+
+            char[] factoryCode = factoryLocationCode.ToCharArray();
+            for (int i = 0; i < factoryCode.Length; i++)
+            {
+                switch (factoryCode[i])
+                {
+                    case '0':
+                        throw new ArgumentException("Foo", nameof(factoryLocationCode));
+                    case '1':
+                        throw new ArgumentException("Foo", nameof(factoryLocationCode));
+                    case '2':
+                        throw new ArgumentException("Foo", nameof(factoryLocationCode));
+                    case '3':
+                        throw new ArgumentException("Foo", nameof(factoryLocationCode));
+                    case '4':
+                        throw new ArgumentException("Foo", nameof(factoryLocationCode));
+                    case '5':
+                        throw new ArgumentException("Foo", nameof(factoryLocationCode));
+                    case '6':
+                        throw new ArgumentException("Foo", nameof(factoryLocationCode));
+                    case '7':
+                        throw new ArgumentException("Foo", nameof(factoryLocationCode));
+                    case '8':
+                        throw new ArgumentException("Foo", nameof(factoryLocationCode));
+                    case '9':
+                        throw new ArgumentException("Foo", nameof(factoryLocationCode));
+                    default:
+                        break;
+                }
+            }
         }
     }
 }
