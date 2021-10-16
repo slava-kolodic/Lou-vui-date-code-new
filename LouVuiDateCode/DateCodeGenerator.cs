@@ -348,8 +348,54 @@ namespace LouVuiDateCode
         /// <returns>A generated date code.</returns>
         public static string Generate2007Code(string factoryLocationCode, uint manufacturingYear, uint manufacturingWeek)
         {
-            // TODO #4-1. Analyze unit tests for the method, and add the method implementation.
-            throw new NotImplementedException();
+            CheckLocationCode(factoryLocationCode);
+
+            if (manufacturingYear < 2007)
+            {
+                throw new ArgumentOutOfRangeException(nameof(manufacturingYear));
+            }
+
+            if (manufacturingWeek < 1)
+            {
+                throw new ArgumentOutOfRangeException(nameof(manufacturingWeek));
+            }
+
+            if (manufacturingWeek > 52)
+            {
+                switch (manufacturingYear)
+                {
+                    case 2020: break;
+                    case 2015: break;
+                    case 2010: break;
+                    default:
+                        throw new ArgumentOutOfRangeException(nameof(manufacturingWeek));
+                }
+            }
+
+            string stringWeek = manufacturingWeek.ToString(CultureInfo.CurrentCulture);
+            char[] charWeek = stringWeek.ToCharArray();
+
+            string stringYear = manufacturingYear.ToString(CultureInfo.CurrentCulture);
+            char[] charYear = stringYear.ToCharArray();
+
+            if (manufacturingWeek > 9)
+            {
+                char[] final = new char[4];
+                Array.Copy(charYear, 3, final, 3, 1);
+                Array.Copy(charYear, 2, final, 1, 1);
+                Array.Copy(charWeek, 1, final, 2, 1);
+                Array.Copy(charWeek, 0, final, 0, 1);
+                return factoryLocationCode.ToUpper(CultureInfo.CurrentCulture) + new string(final);
+            }
+            else
+            {
+                char[] final = new char[4];
+                Array.Copy(charYear, 3, final, 3, 1);
+                Array.Copy(charYear, 2, final, 1, 1);
+                Array.Copy(charWeek, 0, final, 2, 1);
+                final[0] = '0';
+                return factoryLocationCode.ToUpper(CultureInfo.CurrentCulture) + new string(final);
+            }
         }
 
         /// <summary>
