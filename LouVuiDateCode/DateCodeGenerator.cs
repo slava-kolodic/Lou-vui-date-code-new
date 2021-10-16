@@ -1,4 +1,5 @@
-using System;
+﻿using System;
+using System.Globalization;
 
 namespace LouVuiDateCode
 {
@@ -13,7 +14,37 @@ namespace LouVuiDateCode
         public static string GenerateEarly1980Code(uint manufacturingYear, uint manufacturingMonth)
         {
             // TODO #1-1. Analyze unit tests for the method, and add the method implementation.
-            throw new NotImplementedException();
+
+            if (manufacturingMonth > 12)
+            {
+                throw new ArgumentOutOfRangeException(nameof(manufacturingMonth));
+            }
+
+            if ((manufacturingYear < 1980) || (manufacturingYear > 1989))
+            {
+                throw new ArgumentOutOfRangeException(nameof(manufacturingYear));
+            }
+
+            string stringMonth = manufacturingMonth.ToString(CultureInfo.CurrentCulture);
+            char[] charMonth = stringMonth.ToCharArray();
+
+            string stringYear = manufacturingYear.ToString(CultureInfo.CurrentCulture);
+            char[] charYear = stringYear.ToCharArray();
+
+            if (manufacturingMonth > 9)
+            {
+                char[] final = new char[4];
+                Array.Copy(charYear, 2, final, 0, 2);
+                Array.Copy(charMonth, 0, final, 2, final.Length - 2);
+                return new string(final);
+            }
+            else
+            {
+                char[] final = new char[3];
+                Array.Copy(charYear, 2, final, 0, 2);
+                Array.Copy(charMonth, 0, final, 2, final.Length - 2);
+                return new string(final);
+            }
         }
 
         /// <summary>
