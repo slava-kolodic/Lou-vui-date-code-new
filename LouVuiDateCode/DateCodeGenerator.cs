@@ -274,8 +274,69 @@ namespace LouVuiDateCode
         /// <returns>A generated date code.</returns>
         public static string Generate1990Code(string factoryLocationCode, DateTime manufacturingDate)
         {
-            // TODO #3-2. Analyze unit tests for the method, and add the method implementation.
-            throw new NotImplementedException();
+            CheckLocationCode(factoryLocationCode);
+
+            if ((manufacturingDate.Month > 12) || (manufacturingDate.Year < 1990) || (manufacturingDate.Year > 2006))
+            {
+                throw new ArgumentOutOfRangeException(nameof(manufacturingDate));
+            }
+
+            string month = manufacturingDate.Month.ToString(CultureInfo.CurrentCulture);
+            char[] monthChar = month.ToCharArray();
+            string year = manufacturingDate.Year.ToString(CultureInfo.CurrentCulture);
+            char[] yearChar = year.ToCharArray();
+
+            if (manufacturingDate.Year > 2005)
+            {
+                if (manufacturingDate.Month > 9)
+                {
+                    char[] final = new char[2];
+                    Array.Copy(yearChar, 3, final, 1, 1);
+                    Array.Copy(monthChar, 1, final, 0, 1);
+                    return factoryLocationCode.ToUpper(CultureInfo.CurrentCulture) + "00" + new string(final);
+                }
+                else
+                {
+                    char[] final = new char[2];
+                    Array.Copy(yearChar, 3, final, 1, 1);
+                    Array.Copy(monthChar, 0, final, 0, 1);
+                    return factoryLocationCode.ToUpper(CultureInfo.CurrentCulture) + "00" + new string(final);
+                }
+            }
+            else if (manufacturingDate.Year < 2000)
+            {
+                if (manufacturingDate.Month > 9)
+                {
+                    char[] final = new char[2];
+                    Array.Copy(yearChar, 3, final, 1, 1);
+                    Array.Copy(monthChar, 1, final, 0, 1);
+                    return factoryLocationCode.ToUpper(CultureInfo.CurrentCulture) + "09" + new string(final);
+                }
+                else
+                {
+                    char[] final = new char[2];
+                    Array.Copy(yearChar, 3, final, 1, 1);
+                    Array.Copy(monthChar, 0, final, 0, 1);
+                    return factoryLocationCode.ToUpper(CultureInfo.CurrentCulture) + "09" + new string(final);
+                }
+            }
+            else
+            {
+                if (manufacturingDate.Month > 9)
+                {
+                    char[] final = new char[2];
+                    Array.Copy(yearChar, 3, final, 1, 1);
+                    Array.Copy(monthChar, 1, final, 0, 1);
+                    return factoryLocationCode.ToUpper(CultureInfo.CurrentCulture) + "10" + new string(final);
+                }
+                else
+                {
+                    char[] final = new char[2];
+                    Array.Copy(yearChar, 3, final, 1, 1);
+                    Array.Copy(monthChar, 0, final, 0, 1);
+                    return factoryLocationCode.ToUpper(CultureInfo.CurrentCulture) + "10" + new string(final);
+                }
+            }
         }
 
         /// <summary>
