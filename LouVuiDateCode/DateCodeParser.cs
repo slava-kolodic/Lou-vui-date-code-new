@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 
 namespace LouVuiDateCode
 {
@@ -12,8 +12,38 @@ namespace LouVuiDateCode
         /// <param name="manufacturingMonth">A manufacturing month to return.</param>
         public static void ParseEarly1980Code(string dateCode, out uint manufacturingYear, out uint manufacturingMonth)
         {
-            // TODO #6. Analyze unit tests for the method, and add the method implementation.
-            throw new NotImplementedException();
+            if (string.IsNullOrEmpty(dateCode))
+            {
+                throw new ArgumentNullException(nameof(dateCode));
+            }
+
+            manufacturingYear = 0;
+            manufacturingMonth = 0;
+            char[] code = dateCode.ToCharArray();
+
+            if ((code.Length > 4) || (code.Length < 3))
+            {
+                throw new ArgumentException("invalid dateCode", nameof(dateCode));
+            }
+
+            if ((code[0] != '8') || (code[2] is '0'))
+            {
+                throw new ArgumentException("invalid dateCode", nameof(dateCode));
+            }
+
+            char[] charYear = new char[] { '1', '9', ' ', ' ' };
+            char[] charMonth = new char[code.Length / 2];
+            Array.Copy(code, 0, charYear, 2, 2);
+            Array.Copy(code, 2, charMonth, 0, code.Length / 2);
+            string year = new string(charYear);
+            string month = new string(charMonth);
+
+            manufacturingYear = uint.Parse(year, System.Globalization.NumberStyles.Integer, null);
+            manufacturingMonth = uint.Parse(month, System.Globalization.NumberStyles.Integer, null);
+            if (manufacturingMonth > 12)
+            {
+                throw new ArgumentException("invalid dateCode", nameof(dateCode));
+            }
         }
 
         /// <summary>
@@ -62,3 +92,4 @@ namespace LouVuiDateCode
         }
     }
 }
+
