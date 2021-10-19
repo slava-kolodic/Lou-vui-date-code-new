@@ -78,7 +78,7 @@ namespace LouVuiDateCode
                 "FH" => new Country[] { Country.USA },
                 "LA" => new Country[] { Country.USA },
                 "OS" => new Country[] { Country.USA },
-                _ => throw new ArgumentOutOfRangeException(nameof(factoryLocationCode)),
+                _ => throw new ArgumentException(" invalid factoryLocationCode", nameof(factoryLocationCode)),
             };
         }
     }
