@@ -153,9 +153,41 @@ namespace LouVuiDateCode
         /// <param name="manufacturingWeek">A manufacturing month to return.</param>
         public static void Parse2007Code(string dateCode, out Country[] factoryLocationCountry, out string factoryLocationCode, out uint manufacturingYear, out uint manufacturingWeek)
         {
-            // TODO #9. Analyze unit tests for the method, and add the method implementation.
-            // Use CountryParser.GetCountry method to get a list of countries by a factory code.
-            throw new NotImplementedException();
+            if (string.IsNullOrEmpty(dateCode))
+            {
+                throw new ArgumentNullException(nameof(dateCode));
+            }
+
+            char[] codeChar = dateCode.ToCharArray();
+            if (codeChar.Length != 6)
+            {
+                throw new ArgumentException("invalid lenght", nameof(dateCode));
+            }
+
+            if ((codeChar[2] == '0') && (codeChar[4] == '0'))
+            {
+                throw new ArgumentException("invalid week", nameof(dateCode));
+            }
+
+            char[] locationChar = new char[] { codeChar[0], codeChar[1] };
+            factoryLocationCode = new string(locationChar);
+            factoryLocationCountry = CountryParser.GetCountry(factoryLocationCode);
+
+            char[] year = new char[] { '2', '0', codeChar[3], codeChar[5] };
+            manufacturingYear = uint.Parse(year, System.Globalization.NumberStyles.Integer, null);
+
+            if (manufacturingYear < 2007)
+            {
+                throw new ArgumentException("invalid year", nameof(dateCode));
+            }
+
+            char[] week = new char[] { codeChar[2], codeChar[4] };
+            manufacturingWeek = uint.Parse(week, System.Globalization.NumberStyles.Integer, null);
+
+            if ((manufacturingWeek > 52) && (manufacturingYear % 4 != 0))
+            {
+                throw new ArgumentException("invalid week", nameof(dateCode));
+            }
         }
 
         public static void GetMontYear80s(char[] code, out uint manufacturingYear, out uint manufacturingMonth)
